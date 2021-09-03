@@ -1,0 +1,27 @@
+command /ps [<text>]:
+	trigger:
+		if player is op:
+			if arg 1 is not set:
+				send "&6타입을 입력해주세요."
+				stop
+
+			if arg 1 is "start":
+				set {ps} to true
+				send "&a게임이 시작되었습니다."
+				stop
+
+			if arg 1 is "stop":
+				delete {ps}
+				send "&c게임이 종료되었습니다."
+				stop
+	
+on rightclick:
+	if player's tool is leather boots:
+		cancel event
+		set player's tool to air
+		send "&c&l당신은 가죽 장화를 착용할 수 없습니다!"
+
+every 1 seconds:
+	if {ps} is true:
+		loop all players:
+			set block at loop-player to powder snow
